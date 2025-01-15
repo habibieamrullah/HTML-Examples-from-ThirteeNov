@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Images stick on a parent background image</title>
+		<style>
+			#bgimage{
+				width:100%;
+			}
+			
+			#wrapper{
+				position: relative;
+				background-color: blue;
+			}
+			
+			.pin{
+				position: absolute;
+				
+			}
+			
+			body{
+				margin: 0px;
+				padding: 0px;
+			}
+
+
+		</style>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0;" id="mapscreen">
+			<div id="centered">
+				<div id="wrapper">
+					<img id="bgimage" src="grid.jpg">
+					<img class="pin" src="cookie.png" style="top: 20%; left: 40%;">
+					<img class="pin" src="cookie.png" style="top: 60%; left: 75%;">
+					<img class="pin" src="cookie.png" style="top: 20%; left: 15%;">
+					<img class="pin" src="cookie.png" style="top: 40%; left: 55%;">
+				</div>
+			</div>
+		</div>
+		<script>
+			//the pin image width is x percent of bg
+			var pinwidth = 0.05; //5 percent
+			var mapwidth = 0.80; //80 percent of innerWidth
+			function resizePins(){
+				$("#wrapper").width(innerWidth*mapwidth);
+				$("#centered").css({
+					"margin-left" : ((innerWidth - $("#wrapper").width())/2) + "px",
+					"margin-top" : ((innerHeight - $("#wrapper").height())/2) + "px",
+				});
+				
+				$(".pin").css({ "width" : $("#bgimage").width() * pinwidth + "px" });
+				
+			}
+			
+			$( window ).on( "resize", function() {
+				resizePins();
+			} );
+			
+			$( document ).ready( resizePins() );
+		</script>
+	</body>
+</html>
